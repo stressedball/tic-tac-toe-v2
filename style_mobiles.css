@@ -1,0 +1,89 @@
+body{
+    
+    background-color: white;
+}
+#content{
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 30% 70%;
+    align-items: center;
+}
+.header {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+img[alt = "logo"] {
+    max-width: 10vh;
+}
+.hero{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    width: 100%;
+}
+.credit{
+    font-weight: bold;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    justify-self: center;
+}
+
+.choice-buttons{
+    width: 80vw;
+    height: 10vh;
+    font-size: 1.2rem;
+}
+
+.weapons{
+    background-color: lightslategray;
+    width: 35px;
+    border: 1px solid;
+    padding: 1.5rem;
+}
+
+.board{
+    min-width: 50vh;
+    min-height: 50vh;
+    content: '';
+    margin: auto;
+    margin-top: 5vh;
+    border: 1px solid;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1px;
+}
+
+.tile{
+    background-color: paleturquoise;
+}
+
+.tile.played.cross, .tile.played.circle{
+    background-color: aliceblue;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.tile.played.cross{
+    background: url('./assets/cross-sign-svgrepo-com.svg');
+    background-color: aliceblue;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.tile.played.circle{
+    background: url('./assets/circle-stroked-svgrepo-com.svg');
+    background-color: aliceblue;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
