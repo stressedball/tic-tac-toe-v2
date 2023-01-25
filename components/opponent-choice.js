@@ -1,5 +1,5 @@
 'use strict'
-export default function screens(){
+export default function opponentChoice(){
     const content = document.querySelector('#content')
     const container = document.createElement('div')
     container.classList.add('container')
@@ -31,6 +31,7 @@ export default function screens(){
         }
         document.querySelector('button[data-key = "human"').addEventListener('click', handleClick)
         document.querySelector('button[data-key = "cpu"').addEventListener('click', handleClick)
+        document.querySelector('button[data-key = "cpu"').click()
     })
 }
 

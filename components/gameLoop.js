@@ -22,7 +22,7 @@ export default async function gameLoop(player, weapon) {
         res(result)
     })
 }
-async function tempFunc(curr) {
+const tempFunc = (curr) => {
     return new Promise((res) => {
         const getClick = (e) => {
             // console.log(curr)

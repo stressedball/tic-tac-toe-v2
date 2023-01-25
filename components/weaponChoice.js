@@ -7,14 +7,15 @@ export default function weaponChoice(){
     const message = document.querySelector('h2')
 
     return new Promise((resolve) => {
-        cross.addEventListener('click', () => {
+        const handleClick = (e) => {
             cleanScreen(cross, circle, message)
-            resolve(cross.alt) 
-        })
-        circle.addEventListener('click', () => {
-            cleanScreen(cross, circle, message)
-            resolve(circle.alt)
-        })
+            cross.removeEventListener('click', handleClick)
+            circle.removeEventListener('click', handleClick)
+            resolve(e.target.alt)
+        }
+        cross.addEventListener('click', handleClick)
+        circle.addEventListener('click', handleClick)
+        cross.click()
     })
 }
 
