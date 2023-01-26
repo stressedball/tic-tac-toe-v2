@@ -13,10 +13,10 @@ export default class GameBoard{
             if (tile.classList.contains('cross')) xMoves.push(index)
             if (tile.classList.contains('circle')) oMoves.push(index)
             if (tile.classList.contains('played')) count++
-            if (count === 9) return 'tie'
         }
         if (checkCombinations(xMoves) !== false) return 'x'
         if (checkCombinations(oMoves) !== false) return 'o'
+        if (count === 9) return 'tie'
         return false
     }
 }
@@ -27,10 +27,12 @@ function checkCombinations(arr){
         if (arr.filter(el => el[0] === x).length >= 3) return true
         if (arr.filter(el => el[1] === y).length >= 3) return true
         if (arr[i + 1] !== undefined && arr[i + 2] !== undefined) {
+            // diagonal : [0, 0] [2, 2]
             if (arr[i + 1][0] === x + 1 && arr[i + 1][1] === y + 1
                 && arr[i + 2][0] === x + 2 && arr[i + 2][1] === y + 2) {
                 return true
             }
+            // diagonal : [0, 2] [2, 0]
             if (arr[i + 1][0] === x + 1 && arr[i + 1][1] === y - 1
                 && arr[i + 2][0] === x + 2 && arr[i + 2][1] === y - 2) {
                 return true

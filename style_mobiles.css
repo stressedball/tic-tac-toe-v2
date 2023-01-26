@@ -68,7 +68,7 @@ img[alt = "logo"] {
 
 .tile.played.cross, .tile.played.circle{
     background-color: aliceblue;
-    background-size: 80%;
+    background-size: 60%;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -76,14 +76,14 @@ img[alt = "logo"] {
 .tile.played.cross{
     background: url('./assets/cross-sign-svgrepo-com.svg');
     background-color: aliceblue;
-    background-size: 80%;
+    background-size: 60%;
     background-repeat: no-repeat;
     background-position: center;
 }
 .tile.played.circle{
     background: url('./assets/circle-stroked-svgrepo-com.svg');
     background-color: aliceblue;
-    background-size: 80%;
+    background-size: 60%;
     background-repeat: no-repeat;
     background-position: center;
 }

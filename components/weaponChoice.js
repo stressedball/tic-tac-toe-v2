@@ -15,7 +15,7 @@ export default function weaponChoice(){
         }
         cross.addEventListener('click', handleClick)
         circle.addEventListener('click', handleClick)
-        cross.click()
+        circle.click()
     })
 }
 
