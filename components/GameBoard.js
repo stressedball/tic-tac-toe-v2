@@ -9,14 +9,15 @@ export default class GameBoard{
         let oMoves = []
         let count = 0
         for (let tile of tiles){
+            console.log(count)
             const index = tile.dataset.key.split(',').map(el => Number(el))
             if (tile.classList.contains('cross')) xMoves.push(index)
             if (tile.classList.contains('circle')) oMoves.push(index)
             if (tile.classList.contains('played')) count++
         }
-        if (checkCombinations(xMoves) !== false) return 'x'
-        if (checkCombinations(oMoves) !== false) return 'o'
-        if (count === 9) return 'tie'
+        if (checkCombinations(xMoves) !== false) return 'cross'
+        if (checkCombinations(oMoves) !== false) return 'circle'
+        if (count >= 9) return 'tie'
         return false
     }
 }
@@ -26,17 +27,15 @@ function checkCombinations(arr){
         const y = arr[i][1]
         if (arr.filter(el => el[0] === x).length >= 3) return true
         if (arr.filter(el => el[1] === y).length >= 3) return true
-        if (arr[i + 1] !== undefined && arr[i + 2] !== undefined) {
-            // diagonal : [0, 0] [2, 2]
-            if (arr[i + 1][0] === x + 1 && arr[i + 1][1] === y + 1
-                && arr[i + 2][0] === x + 2 && arr[i + 2][1] === y + 2) {
-                return true
-            }
-            // diagonal : [0, 2] [2, 0]
-            if (arr[i + 1][0] === x + 1 && arr[i + 1][1] === y - 1
-                && arr[i + 2][0] === x + 2 && arr[i + 2][1] === y - 2) {
-                return true
-            }
+    }
+    if (arr.filter(el => el[0] === 1 && el[1] === 1).length > 0) {
+        if (arr.filter(el => el[0] === 0 && el[1] === 0).length > 0
+        && arr.filter(el => el[0] === 2 && el[1] === 2).length > 0) {
+            return true
+        }
+        if (arr.filter(el => el[0] === 0 && el[1] === 2).length > 0
+        && arr.filter(el => el[0] === 2 && el[1] === 0).length > 0) {
+            return true
         }
     }
     return false

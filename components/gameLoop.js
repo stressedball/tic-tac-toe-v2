@@ -1,13 +1,13 @@
 'use strict'
 import GameBoard from "./GameBoard.js"
 import Player from "./Player.js"
-import cpu from "./cpu.js"
+import makeAI from "./cpu.js"
 
-export default async function gameLoop(player, weapon) {
+export default async function gameLoop(player, symbol) {
     const board = new GameBoard()
-    const playerOne = new Player('human', weapon)
-    const weaponTwo = weapon === 'cross' ? 'circle' : 'cross'
-    const playerTwo = player === "human" ? new Player('human', weaponTwo) : new Player('cpu', weaponTwo)
+    const playerOne = new Player('human', 'One', symbol)
+    const symbolTwo = symbol === 'cross' ? 'circle' : 'cross'
+    const playerTwo = player === "human" ? new Player('human', 'Two', symbolTwo) : new Player('cpu', 'AI', symbolTwo)
     while (board.gameOver() === false) {
         const currentPlayer = playerOne.turn === true ? playerOne : playerTwo
         const nextPlayer = playerOne.turn === true ? playerTwo : playerOne
@@ -18,17 +18,22 @@ export default async function gameLoop(player, weapon) {
         }
     }
     return new Promise((res) => {
-        const result = board.gameOver()
+        let result 
+        if (board.gameOver() === 'tie') {
+            result = 'tie'
+        }
+        else {
+            result = board.gameOver() === playerOne.symbol ? playerOne : playerTwo
+        }
         res(result)
     })
 }
 const tempFunc = (curr) => {
     return new Promise((res) => {
         const getClick = (e) => {
-            // console.log(curr)
             document.querySelector('.board').removeEventListener('click', getClick)
             if (!e.target.classList.contains('played')) {
-                e.target.classList.add(curr.weapon)
+                e.target.classList.add(curr.symbol)
                 e.target.classList.add('played')
                 res(1)
             } else {
@@ -36,7 +41,7 @@ const tempFunc = (curr) => {
             }
         }
         document.querySelector('.board').addEventListener('click', getClick)
-        cpu(curr)
+        makeAI(curr)
     })
 }
 

@@ -1,138 +1,122 @@
 'use strict'
-export default async function cpu(cpu) {
-    // not lying. Used the tutorial from geeksforgeeks. Pretty straight forward.
+export default async function makeAI(cpu) {
+    // Used the tutorial from geeksforgeeks. Pretty straight forward.
     if (cpu.turn === true && cpu.type === 'cpu') {
-        const board  = getBoard(cpu)
-        const bestMove = findBestMove(board).index
-        const x = bestMove.charAt(0)
-        const y = bestMove.charAt(2)
+        const bestMove = findBestMove(cpu)
+        const x = bestMove.x
+        const y = bestMove.y
         document.querySelector(`.tile[data-key ="${x},${y}"]`).click()
     }
 }
-function findBestMove(board){
-    let bestMove = { index : null, weight : -1000}
+
+function findBestMove(cpu) {
+    let bestMove = { 
+        x: null, y: null, move: -10000 
+    }
+    // I tried to make it differently but couldn't figure out why the algorithm wasn't performing optimally. Resorted to copy/paste pretty much the code from the site mentioned, to at least get the satisfying behavior
+    let board = getBoard(cpu)
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            const move = board.filter(el => el.index === `${i},${j}`)
-            if (move[0].weight === 0) {
-                const index = board.findIndex(el => el.index === move[0].index)
-                if (index !== -1) {
-                    board[index].weight = 1
+            if (board[i][j] === '_') {
+                board[i][j] = `${cpu.symbol}`
+                let moveVal = miniMax(board, 0, false, cpu.symbol)
+                board[i][j] = '_'
+                if (moveVal > bestMove.move) {
+                    bestMove.x = i
+                    bestMove.y = j
+                    bestMove.move = moveVal
                 }
-                let moveVal = miniMax(board, 0, false)
-                if (moveVal > bestMove.weight) {
-                    bestMove.index = move[0].index
-                    bestMove.weight = move[0].weight
-                }
-                board[index].weight = 0
             }
         }
     }
     return bestMove
 }
-function miniMax(board, depth, isMax){
-    let score = checkCombinations(board)
-    if (score === 10) return score
-    if (score === -10) return score
+function miniMax(board, depth, isMax, symbol) {
+    let score = checkCombinations(board, symbol)
+    if (score === 10) return score - depth
+    if (score === -10) return score + depth
     if (isMoveLeft(board) === false) return 0
-    if (isMax === true) {
-        let best = - 1000
+    if (isMax) {
+        let best = - Infinity
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                const move = board.filter(el => el.index === `${i},${j}`)
-                if (move[0].weight === 0) {
-                    const index = board.findIndex(el => el.index === move[0].index)
-                    if (index !== -1) board[index].weight = 1
-                    best = Math.max(best, miniMax(board, depth + 1, !isMax))
-                    board[index].weight = 0
+                if (board[i][j] === '_') {
+                    board[i][j] = `${symbol}`
+                    best = Math.max(best, miniMax(board, depth + 1, !isMax, symbol))
+                    board[i][j] = '_'
                 }
             }
         }
         return best
     } else {
-        let best = 1000
+        let best = Infinity
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                const move = board.filter(el => el.index === `${i},${j}`)
-                if (move[0].weight === 0) {
-                    const index = board.findIndex(el => el.index === move[0].index)
-                    if (index !== -1) board[index].weight = 1
-                    best = Math.min(best, miniMax(board, depth + 1, !isMax))
-                    board[index].weight = 0
+                if (board[i][j] === '_') {
+                    const opponentSymbol = symbol === 'cross' ? 'circle' : 'cross'
+                    board[i][j] = `${opponentSymbol}`
+                    best = Math.min(best, miniMax(board, depth + 1, !isMax, symbol))
+                    board[i][j] = '_'
                 }
             }
         }
         return best
     }
 }
-function checkCombinations(board){
-    const cpuCombinations = board.filter(el => el.weight === 1)
-    const playerCombinations = board.filter(el => el.weight === -1)
+function checkCombinations(board, symbol) {
+    const opponentSymbol = symbol === 'cross' ? 'circle' : 'cross'
+
     for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3;j++) {
-            // horizontals
-            if (cpuCombinations.filter(el => el.index[0] === `${i}`).length >= 3) {
-                return 10
-            }
-            if (playerCombinations.filter(el => el.index[0] === `${i}`).length >= 3) {
-                return -10
-            }
-
-            // verticals
-            if (cpuCombinations.filter(el => el.index[2] === `${j}`).length >= 3) {
-                return 10
-            }
-            if (playerCombinations.filter(el => el.index[2] === `${j}`).length >= 3) {
-                return -10
-            }
-
-            // diagonals
-            if (cpuCombinations.filter(el => el.index[0] === `${i}` 
-                && el.index[2] === `${j}`).length >= 1 
-                && cpuCombinations.filter(el => el.index[0] === `${i + 1 }`
-                && el.index[2] === `${j + 1}`).length >= 1 
-                && cpuCombinations.filter(el => el.index[0] === `${i + 2}` 
-                && el.index[2] === `${j + 2}`).length >= 1) {
-                return 10
-            }
-
-            if (playerCombinations.filter(el => el.index[0] === `${i}` 
-                && el.index[2] === `${j}`).length >= 1 
-                && playerCombinations.filter(el => el.index[0] === `${i + 1}` 
-                && el.index[2] === `${j + 1}`).length >= 1 
-                && playerCombinations.filter(el => el.index[0] === `${i + 2 }`
-                && el.index[2] === `${j + 2}`).length >= 1) {
-                return -10
-            }
+        if (board[i][0] === board[i][1]
+            && board[i][1] === board[i][2]) {
+            if (board[i][0] === `${symbol}`) return 10
+            else if (board[i][0] === `${opponentSymbol}`) return -10
         }
+    }
+    for (let j = 0; j < 3 ; j++) {
+        if (board[0][j] === board[1][j]
+            && board[1][j] === board[2][j]) {
+            if (board[0][j] === `${symbol}`) return 10
+            else if (board[0][j] === `${opponentSymbol}`) return -10
+        }
+    }
+    if (board[0][0] === board[1][1]
+        && board[1][1] === board[2][2]) {
+        if (board[0][0] === `${symbol}`) return 10
+        else if (board[0][0] === `${opponentSymbol}`) return -10
+    }
+    if (board[0][2] == board[1][1] &&
+        board[1][1] == board[2][0]) {
+        if (board[0][2] === `${symbol}`) return +10;
+        else if (board[0][2] === `${opponentSymbol}`) return -10;
     }
     return 0
 }
 function getBoard(cpu) {
-    const tiles = document.querySelectorAll('.tile')
-    let arrOfTiles = []
-    for (let tile of tiles) {
-        const index = `${tile.dataset.key}`
-        const splitClasses = tile.classList.value.split(' ')
-        let weight = 0
-        if (splitClasses.length <= 1) {
-            weight = 0
-        } else {
-            if (splitClasses.filter(el => el === cpu.weapon).length > 0) {
-                weight = 1
-            } else {
-                weight = -1
+    let board = []
+    let arr = []
+    const opponentSymbol = cpu.symbol === 'cross' ? 'circle' : 'cross'
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            const tile = document.querySelector(`.tile[data-key="${i},${j}"]`)
+            let move = '_'
+            if (tile.classList.contains(`${cpu.symbol}`)) {
+                move = `${cpu.symbol}`
+            } else if (tile.classList.contains(`${opponentSymbol}`)) {
+                move = `${opponentSymbol}`
             }
+            arr.push(move)
         }
-        const data = {
-            index,
-            weight
-        }
-        arrOfTiles.push(data)
+        board.push(arr)
+        arr = []
     }
-    return arrOfTiles
+    return board
 }
 const isMoveLeft = board => {
-    if (board.filter(el => el.weight !== 0).length >= board.length) return false
-    return true
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (board[i][j] == '_') return true;
+        }
+    }
+    return false;
 }

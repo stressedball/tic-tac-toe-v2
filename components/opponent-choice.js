@@ -31,7 +31,6 @@ export default function opponentChoice(){
         }
         document.querySelector('button[data-key = "human"').addEventListener('click', handleClick)
         document.querySelector('button[data-key = "cpu"').addEventListener('click', handleClick)
-        document.querySelector('button[data-key = "cpu"').click()
     })
 }
 

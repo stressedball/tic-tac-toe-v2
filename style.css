@@ -1,33 +1,73 @@
-body{
-    background-color: white;
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+body {
+    background-color: black;
+    height: 100vh;
+    width: 100vw;
+    color: white;
+    overflow: hidden;
+    margin: 0;
+    font-family: 'Righteous', cursive;
 }
 
-.header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
-}
-img[alt = "logo"] {
-    max-width: 10vh;
-}
-
-.container{
+#content {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.weapons{
-    width: 35px;
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
 }
 
-.board{
+.hero {
+    display: flex;
+    gap: 3rem;
+}
+
+img[alt="logo"] {
+    max-width: 10vh;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(213deg) brightness(103%) contrast(101%);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 0 auto;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.choice-buttons {
+    height: 12vh;
+    width: 40vw;
+    font-family: 'Righteous', cursive;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
+
+.instruction {
+    font-size: 1.5rem;
+}
+
+.symbols {
+    width: 50px;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(213deg) brightness(103%) contrast(101%);
+    padding: 1rem;
+    border: 1px solid white;
+}
+
+.board {
     min-width: 50vh;
     min-height: 50vh;
     content: '';
-    margin: auto;
-    margin-top: 5vh;
     border: 1px solid;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -35,28 +75,36 @@ img[alt = "logo"] {
     gap: 1px;
 }
 
-.tile{
+.tile {
     background-color: paleturquoise;
 }
 
-.tile.played.cross, .tile.played.circle{
+.tile.played.cross,
+.tile.played.circle {
     background-color: aliceblue;
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.tile.played.cross{
+.tile.played.cross {
     background: url('./assets/cross-sign-svgrepo-com.svg');
     background-color: aliceblue;
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
 }
-.tile.played.circle{
+
+.tile.played.circle {
     background: url('./assets/circle-stroked-svgrepo-com.svg');
     background-color: aliceblue;
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.winner-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

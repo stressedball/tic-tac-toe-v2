@@ -1,34 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+*{
+    max-width: 100vw;
+}
 body{
-    
+    font-family: 'Righteous', cursive;
     background-color: white;
+    margin: 0;
+    overflow: hidden;
 }
-#content{
-    height: 100vh;
-    display: grid;
-    grid-template-rows: 30% 70%;
-    align-items: center;
-}
+
 .header {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
     gap: 1rem;
-    padding: 1rem;
+    /* padding: 1rem; */
 }
 img[alt = "logo"] {
-    max-width: 10vh;
+    max-width: 8vh;
 }
 .hero{
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-around;
-    width: 100%;
+    gap: 1rem;
+    min-width: 100vw;
+    justify-content: center;
 }
+
 .credit{
     font-weight: bold;
 }
+#content{
+    /* display: grid; */
+    grid-template-rows: 30vh 70vh;
+    /* align-items: center; */
+    max-width: 100vw;
+}
 .container{
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,22 +47,26 @@ img[alt = "logo"] {
 }
 
 .choice-buttons{
-    width: 80vw;
+    width: 60vw;
     height: 10vh;
     font-size: 1.2rem;
+    background: aliceblue;
+    border: 3px solid black;
+    border-radius: 5px;
+    font-family: 'Righteous', cursive;
 }
 
-.weapons{
-    background-color: lightslategray;
-    width: 35px;
+.symbols{
+    background-color: aliceblue;
+    width: 45px;
     border: 1px solid;
     padding: 1.5rem;
+    border-radius: 5px;
 }
-
+.instruction{
+    max-width: 70vw;
+}
 .board{
-    min-width: 50vh;
-    min-height: 50vh;
-    content: '';
     margin: auto;
     margin-top: 5vh;
     border: 1px solid;
@@ -60,6 +74,8 @@ img[alt = "logo"] {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 1px;
+    width: 65vw;
+    height: 65vw;
 }
 
 .tile{
@@ -68,7 +84,7 @@ img[alt = "logo"] {
 
 .tile.played.cross, .tile.played.circle{
     background-color: aliceblue;
-    background-size: 60%;
+    background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -76,14 +92,19 @@ img[alt = "logo"] {
 .tile.played.cross{
     background: url('./assets/cross-sign-svgrepo-com.svg');
     background-color: aliceblue;
-    background-size: 60%;
+    background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
 }
 .tile.played.circle{
     background: url('./assets/circle-stroked-svgrepo-com.svg');
     background-color: aliceblue;
-    background-size: 60%;
+    background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
+}
+.winner-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

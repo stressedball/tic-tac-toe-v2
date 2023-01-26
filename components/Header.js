@@ -11,7 +11,7 @@ export default function Header(){
     header.appendChild(hero)
     
     const title = document.createElement('h1')
-    title.textContent = "Tic tac toe !"
+    title.textContent = "Tic Tac Toe !"
 
     const logo = document.createElement('img')
     logo.src = "../assets/tic-tac-toe-svgrepo-com.svg"
