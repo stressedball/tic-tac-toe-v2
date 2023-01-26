@@ -9,7 +9,6 @@ export default class GameBoard{
         let oMoves = []
         let count = 0
         for (let tile of tiles){
-            console.log(count)
             const index = tile.dataset.key.split(',').map(el => Number(el))
             if (tile.classList.contains('cross')) xMoves.push(index)
             if (tile.classList.contains('circle')) oMoves.push(index)

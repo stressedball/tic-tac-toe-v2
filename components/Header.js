@@ -14,7 +14,7 @@ export default function Header(){
     title.textContent = "Tic Tac Toe !"
 
     const logo = document.createElement('img')
-    logo.src = "../assets/tic-tac-toe-svgrepo-com.svg"
+    logo.src = "../../assets/tic-tac-toe-svgrepo-com.svg"
     logo.alt = "logo"
     
     hero.appendChild(title)
