@@ -33,13 +33,13 @@ const domManipulation = () => {
     container.appendChild(message)
 
     const cross = document.createElement('img')
-    cross.src = "../../assets/cross-sign-svgrepo-com.svg"
+    cross.src = "./assets/cross-sign-svgrepo-com.svg"
     cross.classList.add('symbols')
     cross.alt = "cross"
     container.appendChild(cross)
 
     const circle = document.createElement('img')
-    circle.src = "../../assets/circle-stroked-svgrepo-com.svg"
+    circle.src = "./assets/circle-stroked-svgrepo-com.svg"
     circle.classList.add('symbols')
     circle.alt = "circle"
     container.appendChild(circle)
